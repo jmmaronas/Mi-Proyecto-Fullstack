@@ -5,11 +5,11 @@ import { NavLink } from 'react-router-dom';
 function Item({product, handleComprar}) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" className='h-75 object-fit-scale' src={'http://localhost:3000/'+product.image}/>
+      <Card.Img variant="top" className='h-75 object-fit-scale' src={'/images/'+product.image}/>
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
         <Card.Text>
-            {product.decription}
+            {product.description}
         </Card.Text>
         <h1 className='text-center my-4'>$ {product.price}</h1>
         <div className='d-flex justify-content-between'>

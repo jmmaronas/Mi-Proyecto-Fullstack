@@ -13,7 +13,7 @@ router.get('/:id', getProductById)
 
 router.post('/create', authRequired, multer.single("image") , cretateProduct)
 
-router.put('/update/:id', authRequired, updateProduct)
+router.put('/update/:id', authRequired, multer.single("image"), updateProduct)
 
 router.delete('/delete/:id', authRequired, deleteProduct)
 

@@ -1,6 +1,3 @@
-import { useState, useEffect } from 'react';
-import {Button, Col, Form, Row} from 'react-bootstrap';
-import { getMunicipios, getProvincias } from '../../services/api.js';
 import CartDetail from '../Cart/CartDetail.js';
 import FormUser from '../FormUser/FormUser.js';
 import { Link } from 'react-router-dom';

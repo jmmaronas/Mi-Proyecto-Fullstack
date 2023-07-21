@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import ItemDetail from './ItemDetail.js'
-import { useCartContext } from '../../services/services.js'
+import { useCartContext } from '../../services/contextServices.js'
 
 
 export default function ItemDetailList({ product }) {

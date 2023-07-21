@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useCartContext } from "../../services/services.js"
+import { useCartContext } from "../../services/contextServices.js"
 import Item from "./Item.js"
 
 export default function ItemList({ products }) {

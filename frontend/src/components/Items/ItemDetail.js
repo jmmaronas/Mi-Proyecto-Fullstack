@@ -6,7 +6,7 @@ import Counter from '../Counter/Counter.js';
 function ItemDetail({ product, count, increment, decrement, handleClickAgregar }) {
     return (
         <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" className='h-75 object-fit-scale' src={product.thumbnail} />
+            <Card.Img variant="top" className='h-75 object-fit-scale' src={`/images/${product.image}`} alt={product.image} />
             <Card.Body>
                 <Card.Title>{product.title}</Card.Title>
                 <Card.Text>

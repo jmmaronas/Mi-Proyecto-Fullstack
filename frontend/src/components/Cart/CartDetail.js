@@ -1,5 +1,5 @@
 import { Table }from "react-bootstrap";
-import { useCartContext } from '../../services/services.js';
+import { useCartContext } from '../../services/contextServices.js';
 import CartItem from './CartItem.js';
 
 export default function CartDetail() {

@@ -1,10 +1,10 @@
 import { Button } from 'react-bootstrap';
 import {Form} from 'react-bootstrap';
 import { useState } from 'react';
-import { useUserContext } from '../../services/services.js';
+import { useUserContext } from '../../services/contextServices.js';
 
 export default function Login() {
-    const { login, isAdmin } = useUserContext()
+    const { login } = useUserContext()
     const [user, setUser] = useState({})
 
     const handleInput = async ({ name, value }) => {

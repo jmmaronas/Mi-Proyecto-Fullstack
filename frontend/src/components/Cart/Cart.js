@@ -1,6 +1,6 @@
 import { Button, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { useCartContext } from '../../services/services.js';
+import { useCartContext } from '../../services/contextServices.js';
 import CartItem from './CartItem.js';
 
 export default function Cart() {

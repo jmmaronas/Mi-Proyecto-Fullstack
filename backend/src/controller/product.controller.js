@@ -19,10 +19,10 @@ export const getProductById = async (req, res) => {
     }
 }
 
-export const cretateProduct = async (req, res) => {
+export const cretateProduct = async (req, res) => {       
     try {
         const { title, description, price, image } = req.body
-        const newProduct = new Product({ title, description, price, image:req.file.filename })
+        const newProduct = new Product({ title, description, price, image:req.file?.filename || image })
         const productCreated = await newProduct.save()
         return res.json({ productCreated })
     } catch (error) {
@@ -31,8 +31,10 @@ export const cretateProduct = async (req, res) => {
 }
 
 export const updateProduct = async (req, res) => {
+    console.log(req.params.id, req.file)
     try {
-        const productUpdated = await Product.findByIdAndUpdate(req.params.id, { ...req.body }, { new: true })
+        const { title, description, price, image } = req.body
+        const productUpdated = await Product.findByIdAndUpdate(req.params.id, { title, description, price, image:req.file?.filename || image }, { new: true })
         res.json({ productUpdated })
     } catch (error) {
         return res.status(401).json({ message: error.message })

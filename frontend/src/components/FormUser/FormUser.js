@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { getMunicipios, getProvincias } from '../../services/api.js';
-import { useUserContext } from '../../services/services.js';
+import { getMunicipios, getProvincias, updateUser } from '../../services/userService.js';
+import { useUserContext } from '../../services/contextServices.js';
 
-export default function FormUser() {
-    const { register } = useUserContext()
-    const [user, setUser] = useState({})
+export default function FormUser({ userOld, update }) {
+    const { register, token } = useUserContext()
+    const [user, setUser] = useState({username:userOld.username, email:userOld.email} || {})
     const [provicias, setProvincias] = useState([])
     const [municipios, setMunicipios] = useState([])
 
@@ -20,10 +20,13 @@ export default function FormUser() {
         console.log(user)
     }
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         console.log(user)
-        register(user)
+        update ?
+            updateUser(userOld._id, user, token)
+            :
+            register(user)            
     }
 
     useEffect(() => {
@@ -50,7 +53,7 @@ export default function FormUser() {
                             name='username'
                             onInput={({ target }) => handleInput(target)}
                         />
-                    </Form.Group>                   
+                    </Form.Group>
                 </Row>
                 <Row>
                     <Form.Group as={Col} controlId="formGridEmail">
@@ -131,10 +134,15 @@ export default function FormUser() {
                 <Form.Group className="mb-3" id="formGridCheckbox">
                     <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
-
-                <Button className='w-100' variant="primary" type="submit">
-                    Submit
-                </Button>
+                {update ?
+                    <Button className='w-100' variant="primary" type="submit">
+                        Update
+                    </Button>
+                    :
+                    <Button className='w-100' variant="primary" type="submit">
+                        Submit
+                    </Button>
+                }
             </Form>
         </div>
     )

@@ -9,7 +9,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 
 const storage = multer.diskStorage({
-    destination: __dirname + 'views',
+    destination: __dirname + 'views/build/images/',
     filename: (req, file, cb)=> {
         const uniqueSuffix = Date.now()
         cb(null, uniqueSuffix + "-" + file.originalname)

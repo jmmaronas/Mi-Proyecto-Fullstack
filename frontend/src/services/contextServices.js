@@ -10,15 +10,35 @@ export const links = [
     },
     {
         id: 2,
-        description: "Categoria-1",
-        href: "categoria/zapatillas"
+        description: "Desktop",
+        href: "categoria/desktop"
     },
     {
         id: 3,
-        description: "Categoria-2",
+        description: "Notebooks",
         href: "categoria/notebooks"
+    },
+    {
+        id: 4,
+        description: "Accesorios",
+        href: "categoria/accesorios"
+    }
+
+]
+
+export const adminLinks = [
+    {
+        id: 5,
+        description: "Mantenimineto Prodcutos",
+        href: "services/products"
+    },
+    {
+        id: 6,
+        description: "Mantenimineto Usuarios",
+        href: "services/users"
     }
 ]
+
 
 
 export const usersMock = [

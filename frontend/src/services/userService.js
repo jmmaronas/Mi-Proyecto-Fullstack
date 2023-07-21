@@ -1,23 +1,6 @@
 import axios from "axios"
 
-export const getByCategory = async (busqueda = "Motorola%20G6") => {
-    try {
-        //let result = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${busqueda}`)
-        let { data } = await axios.get(`http://localhost:3000/api/products`)
-        return data.product
-    } catch (error) {
-        throw new Error("no se puede acceder al servidor")
-    }
-}
-
-export const getById = async (id) => {
-    try {
-        const { data } = await axios.get(`http://localhost:3000/api/products/${id}`)                
-        return data
-    } catch (error) {
-        throw new Error("Prodcuto no encontrado")
-    }
-}
+//axios.defaults.baseURL = 'http://192.168.2.11:3000';
 
 export const getProvincias = async () => {
     try {
@@ -59,7 +42,7 @@ export const getMunicipios = async (proviciaId) => {
 
 export const validateUser = async (email, password) => {
     try {
-        const { data } = await axios.post('http://localhost:3000/api/login', { email, password })
+        const { data } = await axios.post('/api/login', { email, password })
         return data
     } catch (error) {
         throw new Error(error.response.data.message)
@@ -68,7 +51,7 @@ export const validateUser = async (email, password) => {
 
 export const getUser = async (token) => {
     try {
-        const { data } = await axios.get(`http://localhost:3000/api/profile/`, {
+        const { data } = await axios.get(`/api/profile`, {
             headers: {
                 "Authorization": token
             }
@@ -79,10 +62,54 @@ export const getUser = async (token) => {
     }
 }
 
+export const getUsers = async (token) => {
+    try {
+        const { data } = await axios.get(`/api/profiles`, {
+            headers: {
+                "Authorization": token
+            }
+        })
+        return data
+    } catch (error) {
+        throw new Error(error.response.data.message)
+    }
+}
+
+export const getUserById = async ()=>{
+    return
+}
+
 export const createUser = async (newUser) => {
     try {
-        const { data }= await axios.post(`http://localhost:3000/api/register/`, newUser)
-        console.log(data)
+        const { data } = await axios.post(`/api/register/`, newUser)
+        return data
+    } catch (error) {
+        throw new Error(error.response.data.message)
+    }
+}
+
+
+export const updateUser = async (id, newUser, token) => {
+    try {
+        const { data } = await axios.put(`/api/profile/update/${id}`, newUser, {
+            headers: {
+                "Authorization": token
+            }
+        })
+        return data
+    } catch (error) {
+        throw new Error(error.response.data.message)
+    }
+}
+
+export const delUser = async (id, token) => {
+    try {
+        const { data } = await axios.delete(`/api/profile/delete/${id}`, {
+            headers: {
+                "Authorization": token
+            }
+        })
+        return data
     } catch (error) {
         throw new Error(error.response.data.message)
     }

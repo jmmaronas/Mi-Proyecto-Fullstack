@@ -14,6 +14,6 @@ export const authRequired = (req, res, next) => {
 }
 
 export const adminRequired = (req, res, next) => {
-    req.admin = req.user.role === "user"
+    if(req.user.role === "user")return res.status(401).json({ message: "User Admin required" })
     next()
 }
