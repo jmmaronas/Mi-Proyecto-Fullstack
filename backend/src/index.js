@@ -7,3 +7,4 @@ connectDB()
 const server = app.listen(PORT, ()=>{
     console.log(`Server run on port: ${server.address().port}`)
 })
+

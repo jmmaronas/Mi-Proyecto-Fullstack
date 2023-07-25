@@ -5,22 +5,22 @@ import { UserContext } from "../context/UserContext.js"
 export const links = [
     {
         id: 1,
-        description: "Inicio",
+        title: "Inicio",
         href: "/"
     },
     {
         id: 2,
-        description: "Desktop",
+        title: "Desktop",
         href: "categoria/desktop"
     },
     {
         id: 3,
-        description: "Notebooks",
+        title: "Notebooks",
         href: "categoria/notebooks"
     },
     {
         id: 4,
-        description: "Accesorios",
+        title: "Accesorios",
         href: "categoria/accesorios"
     }
 
@@ -29,12 +29,12 @@ export const links = [
 export const adminLinks = [
     {
         id: 5,
-        description: "Mantenimineto Prodcutos",
+        title: "Mantenimineto Prodcutos",
         href: "services/products"
     },
     {
         id: 6,
-        description: "Mantenimineto Usuarios",
+        title: "Mantenimineto Usuarios",
         href: "services/users"
     }
 ]

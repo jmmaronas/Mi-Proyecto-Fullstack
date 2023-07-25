@@ -59,8 +59,12 @@ export const profile = async (req, res) => {
         const buys = await Sale.find({ userId: id })
         if (!userFound) return res.status(400).json({ message: "User not found" })
         return res.json({
+            id: userFound._id,
             username: userFound.username,
             email: userFound.email,
+            address: userFound.address,
+            province: userFound.province,
+            location: userFound.location,
             role: userFound.role,
             buys,
             createAt: userFound.createdAt,
@@ -94,6 +98,7 @@ export const updateProfile = async (req, res) => {
     try {
         const { id } = req.params
         const result = await User.findByIdAndUpdate(id, req.body)
+        res.json(result)
     } catch (error) {
         res.status(500).json({ message: error.message })
     }

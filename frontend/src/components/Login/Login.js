@@ -1,11 +1,16 @@
 import { Button } from 'react-bootstrap';
-import {Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { useState } from 'react';
 import { useUserContext } from '../../services/contextServices.js';
+
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const { login } = useUserContext()
     const [user, setUser] = useState({})
+    const [error, setError] = useState(null)
+
+    const navigate = useNavigate()
 
     const handleInput = async ({ name, value }) => {
         const newUser = {}
@@ -13,9 +18,14 @@ export default function Login() {
         setUser({ ...user, ...newUser })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit =async (e) => {
         e.preventDefault()
-        login(user.email, user.password)                        
+        try {
+            await login(user.email, user.password)            
+            navigate('/')
+        } catch (error) {
+            setError(error.message)
+        }
     }
 
     return (
@@ -43,6 +53,7 @@ export default function Login() {
                 </Form.Group>
                 <Button type='submit' variant='primary' >Login</Button>
             </Form>
+            {error&& <p className='text-danger my-2'>***{error}***</p>}
         </div>
     );
 }

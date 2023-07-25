@@ -6,6 +6,8 @@ import { useCartContext } from '../../services/contextServices.js'
 export default function ItemDetailList({ product }) {
     const [count, setCount] = useState(1)
     const {addToCart, cart, isInCart } = useCartContext()
+
+
     const increment = () => {
         if (count < 10) setCount(count + 1)
     }
@@ -16,7 +18,6 @@ export default function ItemDetailList({ product }) {
 
     const handleClickAgregar = () => {
         addToCart(product, count)
-        console.log(cart)
     }
 
     useEffect(()=>{

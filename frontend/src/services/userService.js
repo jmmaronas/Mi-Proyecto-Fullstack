@@ -1,6 +1,6 @@
 import axios from "axios"
 
-//axios.defaults.baseURL = 'http://192.168.2.11:3000';
+axios.defaults.baseURL = 'http://192.168.2.11:3000';
 
 export const getProvincias = async () => {
     try {
@@ -42,7 +42,7 @@ export const getMunicipios = async (proviciaId) => {
 
 export const validateUser = async (email, password) => {
     try {
-        const { data } = await axios.post('/api/login', { email, password })
+        const { data } = await axios.post('/api/login', { email, password })        
         return data
     } catch (error) {
         throw new Error(error.response.data.message)
@@ -56,9 +56,10 @@ export const getUser = async (token) => {
                 "Authorization": token
             }
         })
+        console.log(data)
         return data
     } catch (error) {
-        return false
+        throw new Error(error.response.data.message)
     }
 }
 

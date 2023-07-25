@@ -3,18 +3,20 @@ import { useParams } from "react-router-dom";
 import { useUserContext } from "../../services/contextServices.js";
 import { getByCategory, getProductById } from "../../services/productServices.js";
 import { getUsers } from "../../services/userService.js";
-import ItemList from "./ItemList.js";
-import ItemDetailList from "./ItemDetailList.js";
+import ItemList from "../Items/ItemList.js";
+import ItemDetailList from "../Items/ItemDetailList.js";
 import ProductAdminList from "../Admin/Products/ProdcutAdminList.jsx";
 import UserList from "../Admin/Users/UserList.jsx";
 import ProductForm from "../Admin/Products/ProductForm.jsx";
 
-export default function ItemListConatiner() {
+export default function Conatiner() {
     const [products, setProducts] = useState([]);
     const [isLoaded, setIsLoaded] = useState(false);
     const [error, setError] = useState(false)
     const { category, service, productId } = useParams()
     const { token, admin } = useUserContext()
+
+
     useEffect(() => {
         async function startFetching() {
             setIsLoaded(false)

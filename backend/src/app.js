@@ -26,8 +26,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors())
 
 app.use(cookieParser())
-console.log(path.join(__dirname, "/views/1689639141625-DesarroladorWeb.png"))
-app.get("/", (req,res)=>res.sendFile(path.join(__dirname,"/views/1689639141625-DesarroladorWeb.png")))
 app.use('/api', authRoutes)
 app.use('/api/products', productsRoutes)
 app.use('/api/sales', salesRouter)
