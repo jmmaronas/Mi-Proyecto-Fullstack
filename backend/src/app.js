@@ -29,5 +29,9 @@ app.use(cookieParser())
 app.use('/api', authRoutes)
 app.use('/api/products', productsRoutes)
 app.use('/api/sales', salesRouter)
+app.get("*", (req,res)=>{
+    console.log(req.originalUrl)
+    res.redirect("/")
+})
 
 export default app

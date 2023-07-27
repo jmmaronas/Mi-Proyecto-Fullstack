@@ -1,10 +1,9 @@
 import axios from "axios"
 
-axios.defaults.baseURL = 'http://192.168.2.11:3000';
+//axios.defaults.baseURL = 'http://192.168.2.11:3000';
 
 export const getByCategory = async (busqueda = "Motorola%20G6") => {
     try {
-        //let result = await fetch(`https://api.mercadolibre.com/sites/MLA/search?q=${busqueda}`)
         let { data } = await axios.get(`/api/products`)
         return data.product
     } catch (error) {

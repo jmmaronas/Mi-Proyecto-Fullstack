@@ -12,7 +12,7 @@ export default function ItemList({ products }) {
     }
     return (
         <div className="container">
-            <h1 className="text-center my-5 p-5 fw-bold " style={{fontSize:"4rem"}}> Productos</h1>
+            <h1 className="text-center my-5 p-5 fw-bold " style={{fontSize:"4rem"}}> Cursos</h1>
             <div className="gap-5 d-flex justify-content-around flex-wrap">
                 {products.map(product => <Item key={product._id} product={product} handleComprar={handleComprar} />)}
             </div>
