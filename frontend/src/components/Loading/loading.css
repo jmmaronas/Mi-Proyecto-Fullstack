@@ -1,0 +1,26 @@
+.loading {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    animation-duration: 800ms;
+    animation-name: slidein;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
+    transition-delay: -0.25ms;    
+    border: 2px solid black;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+img{
+    object-fit: contain;
+    border-radius: 50%;
+}
+@keyframes slidein {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

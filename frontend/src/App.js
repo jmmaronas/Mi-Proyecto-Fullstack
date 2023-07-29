@@ -9,6 +9,9 @@ import Login from './components/Login/Login.js';
 import ProductForm from './components/Admin/Products/ProductForm.jsx';
 import { useUserContext } from './services/contextServices.js';
 import Layout from './components/Layout/index.jsx';
+import Footter from './components/Footter/Footter.jsx';
+import Skills from './components/Skills/Skills.jsx';
+import Proyects from './components/Proyects/Proyects.jsx';
 
 
 function App() {
@@ -33,6 +36,9 @@ function App() {
         <Route path='/services/users/:idUser' element={<FormUser userOld={user} update={true} />} />
         <Route path='*' element={<h1>Page not Found!</h1>} />
       </Routes>
+      <Proyects/>
+      <Skills/>
+      <Footter/>
     </>
   );
 }

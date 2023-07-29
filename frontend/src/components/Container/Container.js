@@ -8,6 +8,7 @@ import ItemDetailList from "../Items/ItemDetailList.js";
 import ProductAdminList from "../Admin/Products/ProdcutAdminList.jsx";
 import UserList from "../Admin/Users/UserList.jsx";
 import ProductForm from "../Admin/Products/ProductForm.jsx";
+import Loading from "../Loading/Loading.jsx";
 
 export default function Conatiner() {
     const [products, setProducts] = useState([]);
@@ -44,7 +45,7 @@ export default function Conatiner() {
         }
     }, [productId, service, category, token]);
 
-    if (!isLoaded)return <h1>Cargando...</h1>
+    if (!isLoaded)return <Loading image={"/images/yo.png"}/>
 
     if (error) return <h1>error:{error}</h1>
 

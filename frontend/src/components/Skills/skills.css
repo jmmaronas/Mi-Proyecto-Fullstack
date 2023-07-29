@@ -1,0 +1,42 @@
+.icons {
+    width: 8rem;
+    height: 8rem;
+}
+
+#js {
+    color: yellow;
+    background-color: black;
+}
+
+#git {
+    color: orange;
+}
+
+#git-hub {
+    color: #171515;
+}
+
+#node {
+    color: #68a063;
+}
+
+#css {
+    color: #264de4;
+}
+
+#sass {
+    color: #cc6699;
+}
+
+#html {
+    color: #e34c26;
+}
+
+@media screen and (max-width: 800px) {
+    .icons {
+        width: 4rem;
+        height: 4rem;
+    }
+
+
+}
