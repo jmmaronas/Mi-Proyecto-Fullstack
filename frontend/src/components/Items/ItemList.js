@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom"
-import { useCartContext } from "../../services/contextServices.js"
+import { useCartContext, useUserContext } from "../../services/contextServices.js"
 import Item from "./Item.js"
 
 export default function ItemList({ products }) {
+    const { token } = useUserContext()
     const {addToCart } = useCartContext()
     const navigate = useNavigate()
     
     const handleComprar=(product)=>{
-        addToCart(product, 1)
+        addToCart(product, 1, token)
         navigate('/cart')
     }
     return (

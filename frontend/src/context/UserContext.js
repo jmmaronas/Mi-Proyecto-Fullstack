@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 //import { usersMock } from "../services/services";
 import { getUser, validateUser, createUser } from "../services/userService.js";
 
@@ -9,9 +9,9 @@ export const UserContext = createContext()
 const { Provider } = UserContext
 
 export default function UserProvider({ children }) {
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || {})
     const [admin, setAdmin] = useState(false)
-    const [token, setToken] = useState({})
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")) || {})
 
     const login = async (username, password) => {
         try {
@@ -26,6 +26,7 @@ export default function UserProvider({ children }) {
             const userFound = await getUser(token)
             isAdmin(userFound)
             setUser(userFound)
+            return { userFound, token }
         } catch (error) {
             throw new Error(error.message)
         }
@@ -65,6 +66,11 @@ export default function UserProvider({ children }) {
     const isAdmin = (user) => {
         setAdmin(user.role === "admin")
     }
+
+    useEffect(() => {
+        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("token", JSON.stringify(token))
+    }, [user, token])
 
     const valorDelContexto = {
         user,

@@ -1,6 +1,9 @@
 import { createContext, useState, useEffect } from 'react'
 
 import Swal from 'sweetalert2';
+import { getCartById, newCart, updateCart } from '../services/cartServices.js';
+import { useUserContext } from '../services/contextServices.js';
+
 
 export const CartContext = createContext()
 
@@ -8,19 +11,25 @@ const { Provider } = CartContext
 
 export default function CartProvider({ children }) {
     const [cart, setCart] = useState(JSON.parse(localStorage.getItem("carrito")) || []);
+    const [cartId, setCartId] = useState(JSON.parse(localStorage.getItem("carritoId")) ||null)
     const [cantidadProductos, setCantidadProductos] = useState(0);
 
-    function isInCart(product) {
-        return cart.some(e => e.id === product.id);
+    const { token } = useUserContext()
+
+    const createCart = async (product, token) => {
+        return await newCart(product, token)
     }
 
-    function addToCart(product, cantidad) {
-        let arrayNuevo = cart.slice(0)
-        let indice = arrayNuevo.findIndex(e => e.id === product.id);
-        indice === -1 ? arrayNuevo.push({ ...product, cantidad }) : arrayNuevo[indice].cantidad += cantidad;
-        setCart(arrayNuevo);
-        setCantidadProductos(cantidadProductos + cantidad);
-        localStorage.setItem("carrito", JSON.stringify(arrayNuevo));
+    const addToCart = async (product, cantidad) => {
+        if (!cartId) setCartId(await createCart(cart, token))
+        const cartCopy = cart.slice(0)
+        if (isInCart(product)) {
+            cartCopy.find(prod => prod.id === product.id).cantidad += cantidad
+        } else {
+            cartCopy.push({ ...product, cantidad })
+        }
+        if(cartId)updateCart(cartCopy, cartId, token)
+        setCart(cartCopy)
         Swal.fire({
             position: 'center',
             icon: 'success',
@@ -29,38 +38,44 @@ export default function CartProvider({ children }) {
             timer: 1500
         })
     }
-    function delToCart(id) {
+
+    const inputCart=async (cartId, token)=>{
+        setCartId(cartId)
+        const userCart = await getCartById(cartId, token)
+        setCart(userCart)
+    }
+
+    const delToCart = (id) => {
+        console.log(id)
         Swal.fire({
             position: 'center',
             icon: 'warning',
-            title: `Desae eliminar el producto ${cart.find(e=>e.id===id).title}`,
+            title: `Desae eliminar el producto ${cart.find(e => e._id === id).title}`,
             showConfirmButton: true,
-            confirmButtonText:"Confirmar"
+            confirmButtonText: "Confirmar"
         }).then((result) => {
             if (result.isConfirmed) {
-                let carrito = cart.slice(0);
-                let carritoFinal = carrito.filter(e => e.id !== id)
-                let cantidadProductoEliminado = carrito.find(e => e.id === id).cantidad;
-                setCart(carritoFinal);
-                setCantidadProductos(cantidadProductos - cantidadProductoEliminado);
-                localStorage.setItem("carrito", JSON.stringify(carritoFinal));
+                let cartCopy= cart.splice(0).filter(prod => prod._id !== id)
+                setCart(cartCopy)
+                updateCart(cartCopy, cartId, token)
             }
         })
     }
-    function clearCart() {
+
+    const clearCart = () => {
         setCart([]);
-        setCantidadProductos(0);
-        localStorage.clear();
+        localStorage.removeItem("carrito");
     }
 
+    const isInCart = (product) => {
+        return cart.some(e => e._id === product._id);
+    }
 
     useEffect(() => {
-        let cantidaStorage = 0;
-        if (localStorage.getItem("carrito")) {
-            JSON.parse(localStorage.getItem("carrito")).map(e => { return cantidaStorage += e.cantidad })
-        }
-        setCantidadProductos(cantidaStorage);
-    }, []);
+        setCantidadProductos(cart.reduce((acc, prod) => acc += prod.cantidad, 0));
+        localStorage.setItem("carrito", JSON.stringify(cart))
+        localStorage.setItem("carritoId", JSON.stringify(cartId))
+    }, [cart]);
 
     const valorDelContexto = {
         cart,
@@ -68,7 +83,8 @@ export default function CartProvider({ children }) {
         addToCart,
         isInCart,
         delToCart,
-        clearCart
+        clearCart, 
+        inputCart
     }
 
     return (

@@ -5,8 +5,8 @@ import CartItem from './CartItem.js';
 export default function CartDetail() {
     const { cart, delToCart } = useCartContext()
 
-    const handleDelete = (product) => {
-        delToCart(product)
+    const handleDelete = (id) => {
+        delToCart(id)
     }
 
     return (

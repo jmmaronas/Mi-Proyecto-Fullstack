@@ -56,7 +56,6 @@ export const getUser = async (token) => {
                 "Authorization": token
             }
         })
-        console.log(data)
         return data
     } catch (error) {
         throw new Error(error.response.data.message)

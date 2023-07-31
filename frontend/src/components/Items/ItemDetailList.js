@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import ItemDetail from './ItemDetail.js'
-import { useCartContext } from '../../services/contextServices.js'
+import { useCartContext, useUserContext } from '../../services/contextServices.js'
 
 
 export default function ItemDetailList({ product }) {
     const [count, setCount] = useState(1)
     const {addToCart, cart, isInCart } = useCartContext()
+    const { token } = useUserContext()
 
 
     const increment = () => {
@@ -17,7 +18,7 @@ export default function ItemDetailList({ product }) {
     }
 
     const handleClickAgregar = () => {
-        addToCart(product, count)
+        addToCart(product, count, token )
     }
 
     useEffect(()=>{

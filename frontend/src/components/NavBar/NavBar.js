@@ -16,7 +16,7 @@ function NavBar() {
     navigate("/")
   }
   useEffect(() => {
-    if(user.role==="admin")setLinksValidated([...links, ...adminLinks])    
+    if(user?.role==="admin")setLinksValidated([...links, ...adminLinks])    
   }, [user])
 
   return (
@@ -29,7 +29,7 @@ function NavBar() {
           <Nav className="me-auto">
             { linksValidated.map(link => <LinkItem key={"link"+link.id} link={link} />)}
           </Nav>
-          <h3 className='mx-3 text-success'>{user.username}</h3>
+          <h3 className='mx-3 text-success'>{user?.username}</h3>
           {user?.username ?
             <div className='d-flex justify-content-around gap-2 mx-2'>
               <Button onClick={signOff} variant='outline-danger'>Logout</Button>

@@ -7,7 +7,7 @@ export default function CartItem({ product, handleDelete }) {
             <td>{product.title}</td>
             <td>$ {product.price}</td>
             <td>$ {product.price * product.cantidad}</td>
-            <td><Button onClick={() => handleDelete(product.id)} variant="danger">x</Button></td>
+            <td><Button onClick={() => handleDelete(product._id)} variant="danger">x</Button></td>
         </tr>
     )
 }

@@ -5,6 +5,7 @@ import CartItem from './CartItem.js';
 
 export default function Cart() {
     const { cart, delToCart } = useCartContext()    
+
     const handleDelete = (product)=>{
         delToCart(product)
     }

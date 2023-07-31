@@ -1,12 +1,13 @@
 import { Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useState } from 'react';
-import { useUserContext } from '../../services/contextServices.js';
+import { useCartContext, useUserContext } from '../../services/contextServices.js';
 
 import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-    const { login } = useUserContext()
+    const { login, token } = useUserContext()
+    const { inputCart } = useCartContext()
     const [user, setUser] = useState({})
     const [error, setError] = useState(null)
 
@@ -18,10 +19,12 @@ export default function Login() {
         setUser({ ...user, ...newUser })
     }
 
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await login(user.email, user.password)            
+            const { userFound, token } = await login(user.email, user.password)
+            const cartId = userFound.buys[userFound.buys.length - 1]._id
+            inputCart(cartId, token)
             navigate('/')
         } catch (error) {
             setError(error.message)
@@ -53,7 +56,7 @@ export default function Login() {
                 </Form.Group>
                 <Button type='submit' variant='primary' >Login</Button>
             </Form>
-            {error&& <p className='text-danger my-2'>***{error}***</p>}
+            {error && <p className='text-danger my-2'>***{error}***</p>}
         </div>
     );
 }

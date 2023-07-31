@@ -32,6 +32,7 @@ export const createSale = async (req,res)=>{
 }
 
 export const updateSale = async (req,res)=>{
+    console.log(req.body)
     try {
         const userId = req.user.id
         const response = await Sale.findByIdAndUpdate(req.params.id, {userId, cart:req.body}, {new:true})
